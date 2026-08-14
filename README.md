@@ -37,15 +37,6 @@ npm publish
 （`publishConfig.access: public`；如需私有 registry 或作者/仓库字段，
 按需在 package.json 中补充 `author`、`repository`、`bugs` 等标准字段。）
 
-## 动态装载（任何部署可用，无需安装）
-
-对于预构建 Web 部署，可把 `client.js` 作为动态插件装载：在会话中对 AI 说
-
-> 请读取本仓库的 client.js，用 cordis_define 定义新动态插件
-> （idPrefix: bgimg，仅 client 半），然后 cordis_run 激活。
-
-动态插件是进程级临时的：每次重启进程后重复上述步骤；设置不持久化。
-
 ## 结构与原理
 
 - `package.json` — npm 元数据 + `dsh.bundle.patch`（组合补丁）与
@@ -54,8 +45,7 @@ npm publish
 - `lib/index.js` — 主机端占位插件（让组合条目存在，供客户端模块系统扫描）；
 - `lib/client.js` — 自注册客户端 bundle（`window.__ModuleLoader__.load`），
   实现全部界面与背景渲染逻辑；
-- `lib/types/` — 主机端与客户端类型声明；
-- `client.js` — 动态插件源（与 `lib/client.js` 同源，适配动态运行环境）。
+- `lib/types/` — 主机端与客户端类型声明。
 
 ## 注意事项
 
