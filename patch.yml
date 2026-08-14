@@ -1,0 +1,5 @@
+# 组合补丁：把本插件的行插入到 profile 的根组合中。
+# dsh.plugin（profile boot）会按 dsh.profile.bundles 顺序叠加每个 bundle 的补丁。
+- insert:
+    - id: dsh-plugin-background-image
+      name: dsh-plugin-background-image
