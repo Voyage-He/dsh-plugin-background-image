@@ -1,56 +1,85 @@
 # dsh-plugin-background-image
 
-DeepSeek Harness 界面背景图片插件：网络/本地图片与预设渐变背景，支持开关、
-透明度调节、沉浸式全屏或仅对话区域显示。设置入口在
-设置 → 插件 → 插件配置 →「背景图片设置」。
+一个用于 DeepSeek Harness（DSH）的背景图片插件。
 
-本仓库即 npm 包根：完整 npm 元数据 + DSH 插件元数据
-（`dsh.bundle` 组合补丁层 + `dsh.client` 客户端清单）。
+它可以给 DSH 设置网络图片、本地图片或渐变背景，并支持调节透明度，以及选择全屏显示或仅在对话区域显示。
 
-## 安装（DSH 官方插件机制）
+## 效果演示
+
+![DSH 背景图片插件演示](./demo/dsh-plugin-background-image-1.png)
+
+## 安装
+
+### 从本地目录安装
 
 ```bash
-# 本地文件夹安装（无需发布）
 npx @deepseek-ai/dsh plugin --profile <profile名> add \
-  dsh-plugin-background-image@file:/路径/到/本仓库
+  dsh-plugin-background-image@file:/路径/到/background-image-plugin
+```
 
-# 或从 npm 安装（发布后）
+例如：
+
+```bash
+npx @deepseek-ai/dsh plugin --profile web add \
+  dsh-plugin-background-image@file:/Users/your-name/projects/background-image-plugin
+```
+
+### 从 npm 安装
+
+```bash
 npx @deepseek-ai/dsh plugin --profile <profile名> add dsh-plugin-background-image
 ```
 
-安装后用该 profile 启动 DSH，客户端模块系统自动注入浏览器 bundle，
-随 profile 常驻、重启自动生效。
+安装完成后，使用同一个 profile 启动 DSH 即可。
 
-卸载 / 升级：
+## 使用方法
+
+1. 打开 DSH。
+2. 进入 **设置 → 插件 → 插件配置**。
+3. 找到 **背景图片设置**。
+4. 开启背景功能，然后选择网络图片、本地图片或预设渐变。本地图片点「选择本地图片」会弹出系统原生文件框，选中的绝对路径被记录（文件留在原处，不复制、不搬移）。
+5. 根据需要调整透明度和显示范围。
+
+## 配置存储
+
+背景开关、显示范围、透明度和图片由 DSH 设置系统统一持久化到配置目录（默认 `~/.dsh/settings.yaml`），形如：
+
+```yaml
+background-image:
+  enabled: true
+  mode: fullscreen
+  opacity: 0.9
+  image: https://example.com/background.webp
+```
+
+- 刷新页面或重启 DSH 后自动恢复；
+- 本地图片**直接记录绝对路径，不复制、不搬移**，文件留在原处：
+
+```yaml
+background-image:
+  enabled: true
+  mode: fullscreen
+  opacity: 0.9
+  image: /Users/you/Pictures/background.png
+```
+
+> 浏览器因安全策略不能直接加载 `file://` 资源，因此插件在 Host 注册了一个只读文件服务路由（`GET /plugins/background-image/file?path=<绝对路径>`），把被配置引用的本地图片以同源 http 方式提供给页面。该路由仅接受本机回环来源，且只允许读取 settings.yaml 当前 `image` 字段引用的那个路径（“引用即授权”，与官方 `session.attachment` 的授权模型一致）。若图片文件被移动或删除，背景会失效，需要重新设置路径。
+
+## 更新与卸载
+
+更新到最新版：
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile <profile名> remove dsh-plugin-background-image
 npx @deepseek-ai/dsh plugin --profile <profile名> add dsh-plugin-background-image@latest
 ```
 
-## 发布到 npm
+卸载插件：
 
 ```bash
-npm publish
+npx @deepseek-ai/dsh plugin --profile <profile名> remove dsh-plugin-background-image
 ```
 
-（`publishConfig.access: public`；如需私有 registry 或作者/仓库字段，
-按需在 package.json 中补充 `author`、`repository`、`bugs` 等标准字段。）
+## 环境要求
 
-## 结构与原理
-
-- `package.json` — npm 元数据 + `dsh.bundle.patch`（组合补丁）与
-  `dsh.client.platform: web`（客户端清单）；
-- `patch.yml` — 通过 `insert` 把本插件的行追加到 profile 根组合；
-- `lib/index.js` — 主机端占位插件（让组合条目存在，供客户端模块系统扫描）；
-- `lib/client.js` — 自注册客户端 bundle（`window.__ModuleLoader__.load`），
-  实现全部界面与背景渲染逻辑；
-- `lib/types/` — 主机端与客户端类型声明。
-
-## 注意事项
-
-1. **类名补丁与构建相关**：客户端 CSS 中针对浮层/卡片/选择框的纯色补丁使用
-   当前构建的哈希类名；DSH 前端升级后如这些类名变化，需更新 `lib/client.js`
-   末尾的补丁选择器（功能不受影响，只是那些小控件可能再次透出背景图）。
-2. **设置不持久化**：开关/图片选择保存在内存中，刷新页面或重启后需重新启用。
-3. 需要 Node ≥ 18 与 pnpm 可用的环境（`dsh plugin` 内部转发 pnpm）。
+- Node.js 18 或更高版本
+- 已安装并可以正常使用 DeepSeek Harness

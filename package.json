@@ -22,7 +22,8 @@
   "files": [
     "lib",
     "patch.yml",
-    "README.md"
+    "README.md",
+    "demo"
   ],
   "publishConfig": {
     "access": "public"
@@ -46,12 +47,16 @@
       "optional": true
     }
   },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1"
+  },
   "dsh": {
     "bundle": {
       "patch": "./patch.yml"
     },
     "client": {
-      "platform": "web"
+      "platform": "web",
+      "immediately": true
     }
   }
 }
