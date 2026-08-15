@@ -14,7 +14,9 @@
 
 ## 效果演示
 
-![DSH 背景图片插件演示](./demo/dsh-plugin-background-image-1.png)
+![DSH 背景图片插件演示](./demo/screenshot-1.png)
+![DSH 背景图片插件演示](./demo/screenshot-2.png)
+![DSH 背景图片插件演示](./demo/screenshot-3.png)
 
 ## 安装
 
