@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-background-image",
-  "version": "1.0.1",
-  "description": "DeepSeek Harness 界面背景图片插件：网络/本地图片与预设渐变背景，支持开关、透明度调节、沉浸式全屏或仅对话区域显示。",
+  "version": "1.1.0",
+  "description": "DeepSeek Harness 界面背景图片插件：网络/本地图片与预设渐变背景，支持图片不透明度、沉浸式全屏/仅对话区域、毛玻璃模糊与分区不透明度调节。",
   "keywords": [
     "deepseek",
     "dsh",
