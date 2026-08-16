@@ -15,9 +15,11 @@
 
 ## 效果演示
 
-![DSH 背景图片插件演示](./demo/screenshot-1.png)
-![DSH 背景图片插件演示](./demo/screenshot-2.png)
-![DSH 背景图片插件演示](./demo/screenshot-3.png)
+<!-- 图片用指向 GitHub 仓库的绝对 URL：npm 包页面渲染不了相对路径，
+     且 demo 目录已从 npm 包（files）中排除，避免安装用户下载 22MB 截图。 -->
+![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-1.png)
+![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-2.png)
+![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-3.png)
 
 ## 安装
 
