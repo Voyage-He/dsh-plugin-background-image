@@ -1,63 +1,66 @@
 # dsh-plugin-background-image
 
-一个用于 DeepSeek Harness（DSH）的背景图片插件：为界面设置网络图片、本地图片或预设渐变背景，并支持图片不透明度、显示范围、毛玻璃模糊与分区不透明度调节，营造更沉浸的界面效果。
+**English** | [简体中文](https://github.com/Voyage-He/dsh-plugin-background-image/blob/main/README.zh.md)
 
-## 功能特性
+A background image plugin for DeepSeek Harness (DSH): set a web image, local image, or preset gradient as the interface background, with image opacity, display scope, frosted-glass blur, per-region opacity, and chat-content offset for a more immersive interface.
 
-- 网络图片（`http(s)://`）、本地图片（绝对路径）与 `data:image/` 数据地址
-- **本地图片失效提示**：页面加载与打开设置页时自动探测引用的本地文件，被移动/删除后醒目提示重新选择
-- 预设渐变色板（极光 / 晴空 / 樱花 / 落日 / 薄荷 / 深海）
-- 图片不透明度调节
-- 显示范围：**沉浸式全屏** / **仅对话区域**
-- **毛玻璃模糊** + 颜色饱和度（作用于侧边栏与输入卡片等玻璃浮层）
-- **分区不透明度**：侧边栏、输入区可独立调节（侧边栏仅在「沉浸式全屏」下生效）
-- **对话区偏移**：左右平移聊天内容（消息列表与输入卡片，±320px、列宽不变），header 保持原位，为背景图让出展示空间
-- **关闭即还原**：停用插件后移除全部主题 token 覆写与内部样式覆写，界面完全恢复 DSH 原生外观
-- 设置持久化到 `settings.yaml`，刷新页面或重启 DSH 后自动恢复
+## Features
 
-## 效果演示
+- Web images (`http(s)://`), local images (absolute paths), and `data:image/` data URLs
+- **Local image invalidation hint**: the referenced local file is probed automatically on page load and whenever the settings page opens; if it has been moved or deleted, a prominent hint asks you to re-pick it
+- Preset gradient palettes (Aurora / Sky / Sakura / Sunset / Mint / Ocean)
+- Image opacity adjustment
+- Display scope: **Immersive fullscreen** / **Conversation area only**
+- **Frosted-glass blur** + color saturation (applied to the sidebar and glass panels such as the composer card)
+- **Per-region opacity**: sidebar and composer can be tuned independently (the sidebar only takes effect in immersive fullscreen)
+- **Chat content offset**: shift the chat content (message list + composer card, ±320px, column width unchanged) left or right while the header stays in place, to better showcase the background
+- **Clean disable**: turning the plugin off removes every theme-token and internal-style override, fully restoring the native DSH look
+- Settings persist to `settings.yaml` and are restored automatically after a page refresh or a DSH restart
 
-<!-- 图片用指向 GitHub 仓库的绝对 URL：npm 包页面渲染不了相对路径，
-     且 demo 目录已从 npm 包（files）中排除，避免安装用户下载 22MB 截图。 -->
-![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-1.png)
-![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-2.png)
-![DSH 背景图片插件演示](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-3.png)
+## Demo
 
-## 安装
+<!-- Screenshots use absolute GitHub URLs: the npm package page cannot render
+     relative image paths, and the demo directory is excluded from the npm
+     package (files) so installs don't download ~22MB of screenshots. -->
+![DSH background image plugin demo](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-1.png)
+![DSH background image plugin demo](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-2.png)
+![DSH background image plugin demo](https://raw.githubusercontent.com/Voyage-He/dsh-plugin-background-image/main/demo/screenshot-3.png)
 
-### 从本地目录安装
+## Installation
+
+### From a local directory
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile <profile名> add \
-  dsh-plugin-background-image@file:/路径/到/background-image-plugin
+npx @deepseek-ai/dsh plugin --profile <profile> add \
+  dsh-plugin-background-image@file:/path/to/background-image-plugin
 ```
 
-例如：
+For example:
 
 ```bash
 npx @deepseek-ai/dsh plugin --profile web add \
   dsh-plugin-background-image@file:/Users/your-name/projects/background-image-plugin
 ```
 
-### 从 npm 安装
+### From npm
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile <profile名> add dsh-plugin-background-image
+npx @deepseek-ai/dsh plugin --profile <profile> add dsh-plugin-background-image
 ```
 
-安装完成后，使用同一个 profile 启动 DSH 即可。
+Start DSH with the same profile after installation and the plugin will load.
 
-## 使用方法
+## Usage
 
-1. 打开 DSH。
-2. 进入 **设置 → 插件 → 插件配置**。
-3. 找到 **背景图片设置**。
-4. 开启背景功能，然后选择网络图片、本地图片或预设渐变。本地图片点「选择本地图片」会弹出系统原生文件框，选中的绝对路径被记录（文件留在原处，不复制、不搬移）。
-5. 根据需要调整图片不透明度、显示范围，以及**毛玻璃**（背景模糊强度、玻璃颜色饱和度，作用于侧边栏与输入卡片）与**分区不透明度**（侧边栏、输入区）。数值越低越透明、越沉浸；侧边栏在「沉浸式全屏」下呈现毛玻璃，输入区在两种模式下均生效。
+1. Open DSH.
+2. Go to **Settings → Plugins → Plugin Settings**.
+3. Find **Background Image Settings**.
+4. Enable the background, then choose a web image, a local image, or a preset gradient. For local images, clicking "Choose Local Image" opens the native system file dialog; the selected absolute path is recorded (the file stays where it is — never copied or moved).
+5. Adjust the image opacity, display scope, **frosted glass** (blur strength and glass color saturation, applied to the sidebar and composer card), **per-region opacity** (sidebar, composer), and **chat content offset** as needed. Lower opacity values are more transparent and more immersive; the sidebar shows frosted glass in immersive fullscreen, while the composer takes effect in both modes.
 
-## 配置存储
+## Configuration Storage
 
-背景开关、显示范围、图片不透明度、毛玻璃与分区不透明度由 DSH 设置系统统一持久化到配置目录（默认 `~/.dsh/settings.yaml`），形如：
+The background toggle, display scope, image opacity, frosted glass, per-region opacity, and chat content offset are persisted by the DSH settings system into the config directory (default `~/.dsh/settings.yaml`), like this:
 
 ```yaml
 background-image:
@@ -65,15 +68,15 @@ background-image:
   mode: fullscreen
   opacity: 0.9
   image: https://example.com/background.webp
-  blur: 12             # 毛玻璃模糊强度（px，作用于侧边栏与输入卡片，0 关闭）
-  saturation: 1.4      # 玻璃颜色饱和度（1 原样，>1 更鲜艳）
-  sidebarOpacity: 0.5  # 侧边栏不透明度（仅全屏模式生效，配合伪元素实现毛玻璃）
-  composerOpacity: 0.72 # 输入区不透明度
-  contentOffset: 120   # 对话区主体水平偏移（px，正值向右、负值向左，0 居中）
+  blur: 12             # frosted-glass blur strength (px, sidebar & composer card, 0 = off)
+  saturation: 1.4      # glass color saturation (1 = as-is, >1 = more vivid)
+  sidebarOpacity: 0.5  # sidebar opacity (fullscreen mode only, via the pseudo-element glass)
+  composerOpacity: 0.72 # composer opacity
+  contentOffset: 120   # chat content horizontal offset (px, positive = right, negative = left, 0 = centered)
 ```
 
-- 刷新页面或重启 DSH 后自动恢复；
-- 本地图片**直接记录绝对路径，不复制、不搬移**，文件留在原处：
+- Everything is restored automatically after a page refresh or a DSH restart.
+- Local images are **recorded as absolute paths — never copied or moved**; the file stays where it is:
 
 ```yaml
 background-image:
@@ -88,53 +91,53 @@ background-image:
   contentOffset: 0
 ```
 
-> 浏览器因安全策略不能直接加载 `file://` 资源，因此插件在 Host 注册了一个只读文件服务路由（`GET /plugins/background-image/file?path=<绝对路径>`），把被配置引用的本地图片以同源 http 方式提供给页面。该路由仅接受本机回环来源，且只允许读取 settings.yaml 当前 `image` 字段引用的那个路径（“引用即授权”，与官方 `session.attachment` 的授权模型一致）。若图片文件被移动或删除，背景会失效，需要重新设置路径。
+> Browsers cannot load `file://` resources directly due to security policies, so the plugin registers a read-only file-serving route on the host (`GET /plugins/background-image/file?path=<absolute-path>`) that serves the local image referenced by the configuration to the page over same-origin http. The route only accepts loopback origins and only serves the exact path currently referenced by the `image` field in settings.yaml ("reference-as-authorization", the same model as the official `session.attachment`). If the image file is moved or deleted, the background stops working and the path must be set again.
 
-## 依赖
+## Dependencies
 
-### 运行时依赖
+### Runtime dependencies
 
-- `@deepseek-ai/schemastery`：主机端设置 schema 定义与校验。
-- `react`（peer，可选）：客户端设置面板 UI。
-- Node.js 内置模块：`node:child_process`、`node:fs/promises`、`node:path`。
+- `@deepseek-ai/schemastery`: host-side settings schema definition and validation.
+- `react` (peer, optional): client-side settings panel UI.
+- Node.js built-ins: `node:child_process`, `node:fs/promises`, `node:path`.
 
-### 原生文件选择器（可选）
+### Native file picker (optional)
 
-「选择本地图片」会调用系统原生文件框，按平台依赖以下命令：
+"Choose Local Image" invokes the native system file dialog, which depends on the following commands per platform:
 
-| 平台 | 依赖命令 |
+| Platform | Required command |
 | --- | --- |
-| macOS | `osascript`（系统自带） |
-| Linux | `zenity` 或 `kdialog`（二者有其一即可） |
+| macOS | `osascript` (bundled with the system) |
+| Linux | `zenity` or `kdialog` (either one is enough) |
 | Windows | `powershell` |
 
-缺少上述命令时，仍可手动填写本地绝对路径。
+When none of these is available, you can still type the local absolute path manually.
 
-## 已知限制与可能造成的影响
+## Known Limitations and Possible Impact
 
-本插件通过**覆写 DSH 主题 token** 与**注入 CSS** 实现，会改动全局界面表现，使用时需留意以下几点：
+This plugin works by **overriding DSH theme tokens** and **injecting CSS**, which changes the global interface appearance. Keep the following in mind:
 
-1. **覆写全局背景 token `--dsw-alias-bg-base`**：所有引用该 token 的界面区域都会显示背景图。插件已用 CSS 把已知的面板/按钮强制回表面色（`--dsw-alias-bg-layer-2`），但 DSH 升级后新增的引用该 token 的元素可能需要同步补充。
-2. **依赖 DSH 内部 hashed 类名**：连续背景与玻璃效果依赖 `.pI_x6G_frame`、`.wSkVaW_root`、`.ydkMvW_root`、`.hHd-Xa_root`、`.pI_x6G_sidebarCol`、`.uV2eYG_card`、`.wSkVaW_composerSeat` 等内部类名；DSH 升级若改动这些类名，对应效果会失效或错位。
-3. **侧栏毛玻璃依赖伪元素方案**：侧栏的毛玻璃不直接加在侧栏祖先上，而是承载在 `.pI_x6G_sidebarCol::before` 伪元素（`position: absolute` 覆盖层，承担半透明填充与 `backdrop-filter`）上。这样 `backdrop-filter` 落在无 `fixed` 后代的伪元素上，侧栏祖先不再成为 `fixed` 后代的包含块，因此 `.VOzbGW_overlay` 这个 `position: fixed` 的设置弹层不会被锁进侧栏。该方案仍依赖 DSH 内部类名 `.pI_x6G_sidebarCol`、`.hHd-Xa_root` 等，DSH 升级若改动这些类名，侧栏玻璃效果会失效或错位。
-4. **本地图片路由**：本地图片依赖主机端只读路由（仅回环、引用即授权），图片文件被移动或删除后背景会失效，需重新设置路径。插件会在页面加载与每次打开设置页时以 HEAD 请求静默探测（不传输文件内容），失效后在设置页顶部与状态行给出提示。
-5. **关闭即还原**：上述 token 覆写与内部类名样式只在插件启用（侧栏规则还要求处于「沉浸式全屏」模式）时存在于页面；关闭插件或切换到「仅对话区域」后，对应样式表会整体移除，DSH 原生样式完整还原，不会残留 `!important` 覆写。
+1. **Overrides the global background token `--dsw-alias-bg-base`**: every interface region referencing this token will show the background image. The plugin forces known panels/buttons back to surface colors (`--dsw-alias-bg-layer-2`) via CSS, but elements added by future DSH updates that reference the token may need follow-up rules.
+2. **Depends on DSH internal hashed class names**: the continuous background, glass effects, and chat content offset rely on internal class names such as `.pI_x6G_frame`, `.wSkVaW_root`, `.ydkMvW_root`, `.hHd-Xa_root`, `.pI_x6G_sidebarCol`, `.uV2eYG_card`, `.wSkVaW_composerSeat`, `.wSkVaW_viewArea`, and `.wSkVaW_composerHero`. If a DSH update renames them, the corresponding effects break or misalign.
+3. **Sidebar frosted glass relies on a pseudo-element approach**: the sidebar glass is not applied to the sidebar ancestor itself but to the `.pI_x6G_sidebarCol::before` pseudo-element (an absolutely positioned overlay carrying the translucent fill and `backdrop-filter`). This way `backdrop-filter` lands on a pseudo-element without `fixed` descendants, so the sidebar ancestor never becomes the containing block for fixed descendants — the `position: fixed` settings overlay (`.VOzbGW_overlay`) is not trapped inside the sidebar. The approach still depends on internal class names such as `.pI_x6G_sidebarCol` and `.hHd-Xa_root`; if a DSH update renames them, the sidebar glass breaks or misaligns.
+4. **Local image route**: local images depend on the host-side read-only route (loopback only, reference-as-authorization). If the image file is moved or deleted, the background stops working until the path is set again. The plugin probes silently with HEAD requests on page load and whenever the settings page opens (no file content is transferred), and shows a hint at the top of the settings page and in the status line when invalid.
+5. **Clean disable**: the token overrides and internal-class styles above exist on the page only while the plugin is enabled (sidebar rules additionally require immersive fullscreen mode). Turning the plugin off or switching to "Conversation area only" removes the corresponding stylesheets entirely, fully restoring native DSH styles without leftover `!important` overrides.
 
-## 更新与卸载
+## Update and Uninstall
 
-更新到最新版：
-
-```bash
-npx @deepseek-ai/dsh plugin --profile <profile名> add dsh-plugin-background-image@latest
-```
-
-卸载插件：
+Update to the latest version:
 
 ```bash
-npx @deepseek-ai/dsh plugin --profile <profile名> remove dsh-plugin-background-image
+npx @deepseek-ai/dsh plugin --profile <profile> add dsh-plugin-background-image@latest
 ```
 
-## 环境要求
+Uninstall the plugin:
 
-- Node.js 18 或更高版本
-- 已安装并可以正常使用 DeepSeek Harness
+```bash
+npx @deepseek-ai/dsh plugin --profile <profile> remove dsh-plugin-background-image
+```
+
+## Requirements
+
+- Node.js 18 or later
+- A working DeepSeek Harness installation
