@@ -11,6 +11,7 @@
 - 显示范围：**沉浸式全屏** / **仅对话区域**
 - **毛玻璃模糊** + 颜色饱和度（作用于侧边栏与输入卡片等玻璃浮层）
 - **分区不透明度**：侧边栏、输入区可独立调节（侧边栏仅在「沉浸式全屏」下生效）
+- **对话区偏移**：左右平移对话主体（±320px、列宽不变），为背景图让出展示空间
 - **关闭即还原**：停用插件后移除全部主题 token 覆写与内部样式覆写，界面完全恢复 DSH 原生外观
 - 设置持久化到 `settings.yaml`，刷新页面或重启 DSH 后自动恢复
 
@@ -68,6 +69,7 @@ background-image:
   saturation: 1.4      # 玻璃颜色饱和度（1 原样，>1 更鲜艳）
   sidebarOpacity: 0.5  # 侧边栏不透明度（仅全屏模式生效，配合伪元素实现毛玻璃）
   composerOpacity: 0.72 # 输入区不透明度
+  contentOffset: 120   # 对话区主体水平偏移（px，正值向右、负值向左，0 居中）
 ```
 
 - 刷新页面或重启 DSH 后自动恢复；
@@ -83,6 +85,7 @@ background-image:
   saturation: 1
   sidebarOpacity: 0.5
   composerOpacity: 0.72
+  contentOffset: 0
 ```
 
 > 浏览器因安全策略不能直接加载 `file://` 资源，因此插件在 Host 注册了一个只读文件服务路由（`GET /plugins/background-image/file?path=<绝对路径>`），把被配置引用的本地图片以同源 http 方式提供给页面。该路由仅接受本机回环来源，且只允许读取 settings.yaml 当前 `image` 字段引用的那个路径（“引用即授权”，与官方 `session.attachment` 的授权模型一致）。若图片文件被移动或删除，背景会失效，需要重新设置路径。
